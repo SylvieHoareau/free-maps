@@ -1,0 +1,33 @@
+/* css/leaflet.css */
+@import '~leaflet/dist/leaflet.css';
+
+.map-component {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    position: relative;
+}
+  
+.map {
+    height: 50em;
+    width: 100%;
+    margin: 30px;
+    border: 1px solid gray;
+    background-color: rgb(125, 193, 220);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: whitesmoke;
+    border-radius: 5px;
+}
+
+/*Pour positionner le MapContainer au-dessus de la carte*/
+.map-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
