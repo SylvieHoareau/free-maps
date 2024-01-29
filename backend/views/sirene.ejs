@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Accueil</title>
+    </head>
+    <body>
+        <h1>Données de l'API INSEE SIRENE</h1>
+
+        <table>
+            <thead>
+                <th>SIRET</th>
+                <th>Statut</th>
+                <th>Date de création</th>
+                <th>Activité Principale</th>
+                <th>Adresse</th>
+            </thead>
+            <tbody>
+                <% entreprises.forEach(etablissement => { %>
+                    <tr>
+                        <td><%= etablissement.siret %></td>
+                        <td><%= etablissement.statutDiffusionEtablissement %></td>
+                        <td><%= etablissement.dateCreationEtablissement %></td>
+                        <td><%= etablissement.activitePrincipaleRegistreMetiersEtablissement %></td>
+                        <td><%= formatAdress(etablissement.adresseEtablissement) %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <% function formatAddress(address) { %>
+            <%= address.complementAdresseEtablissement ?  address.complementAdresseEtablissement + '<br>' : '' %>
+            <%= address.libelleVoieEtablissement ?  address.libelleVoieEtablissement + '<br>' : '' %>
+            <%= address.codePostalEtablissement ?  address.codePostalEtablissement + ' ' : '' %>
+            <%= address.libelleCommuneEtablissement ?  address.libelleCommuneEtablissement : '' %>
+        <% } %>
+    </body>
+</html>
