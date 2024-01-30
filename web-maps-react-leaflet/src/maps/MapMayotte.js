@@ -4,10 +4,10 @@ import '../css/leaflet.css'
 // import '../../node_modules/leaflet/dist/leaflet.css'; // Fichier CSS de Leaflet
 // import '../../node_modules/react-leaflet/dist/react-leaflet.css'; // Fichier CSS de react-leaflet
 
-const MapMadagascar = () => {
+const MapMayotte = () => {
 
     // Coordonnées du lieu
-    const position = [-18.766947, 46.869107]
+    const position = [-12.827500, 45.166244]
 
    /*  const mapStyle = {
         height: '600px', // 100% de la hauteur de la fenêtre visible
@@ -15,10 +15,10 @@ const MapMadagascar = () => {
     } */
 
     return (
-        <section className="map-component" id="maurice">
-            <h1>Carte de Madagascar avec Open Street Map</h1>
+        <section className="map-component" id="reunion">
+            <h1>Carte de Mayotte avec Open Street Map</h1>
             <div className="map">
-                <MapContainer center={position} zoom={5} scrollWheelZoom={false} style={{ width: '500px', height: '500px' }} className="map-container">
+                <MapContainer center={position} zoom={10} scrollWheelZoom={false} style={{ width: '500px', height: '500px' }} className="map-container">
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -31,7 +31,8 @@ const MapMadagascar = () => {
                 </MapContainer>
              </div>
         </section>
+       
     )
 }
 
-export default MapMadagascar
+export default MapMayotte
