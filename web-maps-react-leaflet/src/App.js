@@ -10,6 +10,7 @@ import MapMayotte from './maps/MapMayotte';
 import PluReunion from './maps/PluReunion';
 // import AdminReunion from './maps/AdminReunion';
 import CodesPostaux from './maps/CodesPostaux';
+import EpciMap from './maps/EpciMap';
 import CommuneMap from './maps/CommuneMap';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/codes" element={<CodesPostaux/>}></Route>
           {/* <Route path="/administration" element={<AdminReunion/>}></Route> */}
           <Route path="/plu" element={<PluReunion/>}></Route>
+          <Route path="/epci" element={<EpciMap/>}></Route>
           <Route path="/commune" element={<CommuneMap/>}></Route>
           <Route path="/about" element={<AboutUs/>}></Route>
           <Route path="/contact" element={<ContactUs/>}></Route>

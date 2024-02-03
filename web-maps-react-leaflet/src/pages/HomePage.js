@@ -2,9 +2,6 @@ import React from 'react';
 import { Container, Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// import '../../node_modules/leaflet/dist/leaflet.css'; // Fichier CSS de Leaflet
-// import '../../node_modules/react-leaflet/dist/react-leaflet.css'; // Fichier CSS de react-leaflet
-
 const HomePage = () => {
 
     return (

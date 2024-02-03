@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import axios from 'axios';
 
-const CommuneMap = () => {
-    // Pour afficher les données ADMIN EXPRESS COG - commune
-    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=ADMINEXPRESS-COG.LATEST:commune';
+const EpciMap = () => {
+    // Pour afficher les données ADMIN EXPRESS COG - epci
+    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=ADMINEXPRESS-COG-CARTO.LATEST:epci';
 
     const [geoJSONData, setGeoJSONData] = useState([]);
 
@@ -17,7 +17,7 @@ const CommuneMap = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const totalCount = 34945;
+                const totalCount = 1266;
                 const totalPages = Math.ceil(totalCount / featuresPerPage);
 
                 // Récupérer les données de toutes les pages
@@ -29,7 +29,7 @@ const CommuneMap = () => {
                             SERVICE: 'WFS',
                             VERSION: '2.0.0',
                             REQUEST: 'GetFeature',
-                            TYPENAME: 'ADMINEXPRESS-COG-CARTO.LATEST:commune',
+                            TYPENAME: 'ADMINEXPRESS-COG-CARTO.LATEST:epci',
                             outputFormat: 'application/json',
                             startIndex,
                             count: featuresPerPage
@@ -54,15 +54,38 @@ const CommuneMap = () => {
         fetchData();
     }, [wfsEndpoint, CLEF])
 
+    const getFeatureStyle = (feature) => {
+        return {
+            fillColor: 'blue',
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+        }
+    }
+
+    const onEachFeature = (feature, layer) => {
+        // Ajouter une Popup avec le nom de l'EPCI au survol
+        if (feature.properties && feature.properties.nom) {
+            layer.bindPopup(feature.properties.nom);
+        }
+    }
+
     return (
         <MapContainer center={[-14.2350, 51.9253]} zoom={5} style={{ height: '500px', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='<p>&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors</p>'
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors'
             />
-            {geoJSONData.length > 0 && <GeoJSON data={{ type: 'FeatureCollection', features: geoJSONData }} />}
+            {geoJSONData.length > 0 && 
+                <GeoJSON 
+                    data={{ type: 'FeatureCollection', features: geoJSONData }} 
+                    style={getFeatureStyle}
+                    onEachFeature={onEachFeature}
+                />}
         </MapContainer>
     )
 }
 
-export default CommuneMap
+export default EpciMap
