@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import axios from 'axios';
 
-const EpciMap = () => {
-    // Pour afficher les données ADMIN EXPRESS COG - epci
-    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=ADMINEXPRESS-COG-CARTO.LATEST:epci';
+const ContourIris = () => {
+    // Pour afficher les données STATISTICALUNITS.IRIS:contours_iris
+    const wfsEndpoint = 'https://wxs.ign.fr/cartovecto/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=STATISTICALUNITS.IRIS:contours_iris';
 
     const [geoJSONData, setGeoJSONData] = useState([]);
 
@@ -17,7 +17,7 @@ const EpciMap = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const totalCount = 1266;
+                const totalCount = 49424;
                 const totalPages = Math.ceil(totalCount / featuresPerPage);
 
                 // Récupérer les données de toutes les pages
@@ -29,7 +29,7 @@ const EpciMap = () => {
                             SERVICE: 'WFS',
                             VERSION: '2.0.0',
                             REQUEST: 'GetFeature',
-                            TYPENAME: 'ADMINEXPRESS-COG-CARTO.LATEST:epci',
+                            TYPENAME: 'STATISTICALUNITS.IRIS:contours_iris',
                             outputFormat: 'application/json',
                             startIndex,
                             count: featuresPerPage
@@ -88,4 +88,4 @@ const EpciMap = () => {
     )
 }
 
-export default EpciMap
+export default ContourIris
