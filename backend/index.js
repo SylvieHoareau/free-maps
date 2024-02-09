@@ -1,38 +1,38 @@
 // index.js
 import express from 'express';
 import dotenv from 'dotenv';
-import axios from 'axios';
+import { getSireneData } from './services/inseeService.js';
 
 // Charger la configuration de dotenv
 dotenv.config()
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // Middleware pour parser le coprs des requêtes JSON
 app.use(express.json());
 
+// Configuration du moteur de modèle EJS
+app.set('view engine', 'ejs');
+app.set('views', new URL('./views', import.meta.url).pathname);
+
+// Route principale
 app.get('/', (req, res) => {
-    res.render('index', { message: 'Bienvenue sur mon projet' })
+    res.render('index', { message: 'Bienvenue sur le backoffice' })
 })
 
 app.get('/sirene', async (req, res) => {
     try {
         // Effectuer la requête de l'API INSEE
-        const response = await axios.get('https://api.insee.fr/entreprises/sirene/V3/siret?q=codeCommuneEtablissement:97411', {
-            headers: {
-                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
-                'Accept': 'application/json'
-            }
-        })
-
+        const data = await getSireneData();
         // Traiter les données et les passer au modèle EJS
-        const entreprises = response.data.etablissements
+        const entreprises = data.etablissements
 
         res.render('sirene', { entreprises })
+      
     } catch (error) {
         if (error.response) {
-            // La requête a été faite et le serveur a réponde
+            // La requête a été faite et le serveur a répondu
             console.error('Erreur de l\'API INSEE', error.response)
             res.status(error.response.status).send('Erreur de l\'API INSEE')
             
@@ -51,15 +51,6 @@ app.get('/sirene', async (req, res) => {
         }
         
     }
-})
-
-// Configuration du moteur de modèle EJS
-app.set('view engine', 'ejs');
-app.set('views', new URL('./views', import.meta.url).pathname);
-
-// Route principale
-app.get('/', (req, res) => {
-    res.render('index', { message: 'Bienvenue sur mon projet' })
 })
 
 // Démarrer le serveur
