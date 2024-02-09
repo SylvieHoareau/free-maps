@@ -25,8 +25,26 @@
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5000/sirene">BDM</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:5000/sirene">Données locales</a>
+                        <!--Dropdown-->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" 
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                                Données locales
+                            </a>
+                            <div class="dropdown-menu" aria-labelledbt="navbarDropdown">
+                                <a class="dropdown-item" href="#">Recencement de la population</a>
+                                <a class="dropdown-item" href="#">FiLoSoFi</a>
+                                <a class="dropdown-item" href="#">Flores</a>
+                                <a class="dropdown-item" href="#">Population légale</a>
+                                <a class="dropdown-item" href="#">Etat-Civil</a>
+                                <a class="dropdown-item" href="#">Répertoire des Entreprises et des Etablissements</a>
+                                <a class="dropdown-item" href="#">Tourisme</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5000/sirene">Métadonnées</a>
@@ -49,10 +67,10 @@
                 <tbody>
                     <% entreprises.forEach(etablissement => { %>
                         <tr>
-                            <td><%= etablissement.siret %></td>
-                            <td><%= etablissement.statutDiffusionEtablissement %></td>
-                            <td><%= etablissement.dateCreationEtablissement %></td>
-                            <td><%= etablissement.activitePrincipaleRegistreMetiersEtablissement %></td>
+                            <td><%= etablissement.siret ? etablissement.siret : 'N/A' %></td>
+                            <td><%= etablissement.statutDiffusionEtablissement ? etablissement.statutDiffusionEtablissement : 'N/A' %></td>
+                            <td><%= etablissement.dateCreationEtablissement ? etablissement.dateCreationEtablissement : 'N/A' %></td>
+                            <td><%= etablissement.activitePrincipaleRegistreMetiersEtablissement ? etablissement.activitePrincipaleRegistreMetiersEtablissement : 'N/A' %></td>
                             <td><%= formatAddress(etablissement.adresseEtablissement) %></td>
                         </tr>
                     <% }) %>
@@ -60,12 +78,11 @@
             </table>
         </div>
         
-
         <% function formatAddress(address) { %>
-            <%= address.complementAdresseEtablissement ?  address.complementAdresseEtablissement + ' ' : '' %>
-            <%= address.libelleVoieEtablissement ?  address.libelleVoieEtablissement + ' ' : '' %>
-            <%= address.codePostalEtablissement ?  address.codePostalEtablissement + ' ' : '' %>
-            <%= address.libelleCommuneEtablissement ?  address.libelleCommuneEtablissement : '' %>
+            <%= address.complementAdresseEtablissement ?  address.complementAdresseEtablissement + ' ' : 'N/A' %>
+            <%= address.libelleVoieEtablissement ?  address.libelleVoieEtablissement + ' ' : 'N/A' %>
+            <%= address.codePostalEtablissement ?  address.codePostalEtablissement + ' ' : 'N/A' %>
+            <%= address.libelleCommuneEtablissement ?  address.libelleCommuneEtablissement : 'N/A' %>
         <% } %>
 
         <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
