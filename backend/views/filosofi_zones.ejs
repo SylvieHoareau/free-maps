@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>INSEE - FILOSOFI</title>
+        <!--Bootstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+         <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <%- include('./navbar.ejs') %>
+        <div class="container mt-5">
+            <h1 class="mb-4">Données de l'API INSEE Filosofi</h1>
+            <h2>Variable | <%= data.Variable.Libelle %></h2>
+            <p><strong>Jeu de données :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Libelle ? data.Croisement.JeuDonnees.Libelle : 'N/A' %></p>
+            <p><strong>Source :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Source ? data.Croisement.JeuDonnees.Source : 'N/A' %></p>
+            <!--Tableau de données-->
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <th>Code commune</th>
+                    <th>Commune</th>
+                    <th>Premier décile</th>
+                    <th>Neuvième décile</th>
+                    <th>Rapport interdécile (sans unité)</th>
+                    <th>Taux de pauvreté</th>
+                    <th>Part des revenus d'activités</th>
+                    <th>Part des salaires ou traitements hors indemnités de chômage</th>
+                    <th>Part des indemnités de chômage</th>
+                    <th>Revenues des activités non salariées</th>
+                    <th>Pensions, retraites, et rentes</th>
+                    <th>Revenus du patrimoine</th>
+                    <th>Ensemble des prestations sociales</th>
+                    <th>Prestations familiales</th>
+                    <th>Minima sociaux</th>
+                    <th>Prestations Logements</th>
+                    <th>Impôts</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= data.Zone['@codgeo'] ? data.Zone['@codgeo'] : 'N/A' %></td>
+                        <td><%= data.Zone.Millesime.Nccenr ? data.Zone.Millesime.Nccenr : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'D1') ? findCellValueByMesure(data, 'D1') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'D9') ? findCellValueByMesure(data, 'D9') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'RD') ? findCellValueByMesure(data, 'RD') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'TP60') ? findCellValueByMesure(data, 'TP60') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PACT') ? findCellValueByMesure(data, 'PACT') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PTSA') ? findCellValueByMesure(data, 'PTSA') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PCHO') ? findCellValueByMesure(data, 'PCHO') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PBEN') ? findCellValueByMesure(data, 'PBEN') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PPEN') ? findCellValueByMesure(data, 'PPEN') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PPAT') ? findCellValueByMesure(data, 'PPAT') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PPSOC') ? findCellValueByMesure(data, 'PPSOC') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PPFAM') ? findCellValueByMesure(data, 'PPFAM') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PPMINI') ? findCellValueByMesure(data, 'PPMINI') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PPLOGT') ? findCellValueByMesure(data, 'PPLOGT') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'PIMPOT') ? findCellValueByMesure(data, 'PIMPOT') : 'N/A' %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <%
+            function findCellValueByMesure(data, measureCode) {
+                const cellule = data.Cellule.find(cell => cell.Mesure['@code'] === measureCode);
+                return cellule ? cellule.Valeur : 'N/A';
+            }
+        %>
+       
+    </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>INSEE - FLORES</title>
+        <!--Bootstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <%- include('./navbar.ejs') %>
+        <div class="container mt-5">
+            <h1 class="mb-4">Données de l'API INSEE FLORES</h1>
+            <p><strong>Jeu de données :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Libelle ? data.Croisement.JeuDonnees.Libelle : 'N/A' %></p>
+            <p><strong>Source :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Source ? data.Croisement.JeuDonnees.Source : 'N/A' %></p>
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <th>Code Commune</th>
+                    <th>Commune</th>
+                    <th>Autres activités de services</th>
+                    <th>Administration publique, enseignements, santé humaine et action sociale</th>
+                    <th>Activités scientifiques et techniques ; services administratifs et de soutien</th>
+                    <th>Activités immobilières</th>
+                    <th>Activités financières et d'assurance</th>
+                    <th>Information et communication</th>
+                    <th>Hébergement et restauration</th>
+                    <th>Transports et entreprosage</th>
+                    <th>Commerce ; réparation d'automobiles et motocyles</th>
+                    <th>Construction</th>
+                    <th>Industries extractives, énergie, eau, gestion des déchets et dépollution</th>
+                    <th>Fabrication d'autres produits industriels</th>
+                    <th>Fabrication de matériels de transport</th>
+                    <th>Fabrication d'équipements électriques, électroniques, informatiques ; fabrication de machine</th>
+                    <th>Cokéfaction et raffinage</th>
+                    <th>Fabrication de denrées alimentaires, de boissons et de produits à base de tabac</th>
+                    <th>Agriculture, sylviculture et pâche</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= data.Zone['@codgeo'] ? data.Zone['@codgeo'] : 'N/A' %></td>
+                        <td><%= data.Zone.Millesime.Nccenr ? data.Zone.Millesime.Nccenr : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'RU') ? findCellValueByMesure(data, 'RU') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'OQ') ? findCellValueByMesure(data, 'OQ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'MN') ? findCellValueByMesure(data, 'MN') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'LZ') ? findCellValueByMesure(data, 'LZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'KZ') ? findCellValueByMesure(data, 'KZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'JZ') ? findCellValueByMesure(data, 'JZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'IZ') ? findCellValueByMesure(data, 'IZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'HZ') ? findCellValueByMesure(data, 'HZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'GZ') ? findCellValueByMesure(data, 'GZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'FZ') ? findCellValueByMesure(data, 'FZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'DE') ? findCellValueByMesure(data, 'DE') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'C5') ? findCellValueByMesure(data, 'C5') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'C4') ? findCellValueByMesure(data, 'C4') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'C3') ? findCellValueByMesure(data, 'C3') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'C2') ? findCellValueByMesure(data, 'C2') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'C1') ? findCellValueByMesure(data, 'C1') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'AZ') ? findCellValueByMesure(data, 'AZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'ENS') ? findCellValueByMesure(data, 'ENS') : 'N/A' %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <%
+            function findCellValueByMesure(data, measureCode) {
+                const cellule = data.Cellule.find(cell => cell.Modalite['@code'].toLowerCase() === measureCode.toLowerCase());
+                return cellule ? cellule.Valeur : 'N/A';
+            }
+        %>
+
+    
+    </body>
+</html>

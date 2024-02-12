@@ -21,28 +21,17 @@
                 <thead class="thead-dark">
                     <th>Code commune</th>
                     <th>Commune</th>
-                    <th>Nombre de ménages fiscaux</th>
-                    <th>Nombre de personnes fiscales</th>
-                    <th>Médiane</th>
+                    <th>Part des ménages fiscaux imposés (indice)</th>
                 </thead>
                 <tbody>
                     <tr>
                         <td><%= data.Zone['@codgeo'] ? data.Zone['@codgeo'] : 'N/A' %></td>
                         <td><%= data.Zone.Millesime.Nccenr ? data.Zone.Millesime.Nccenr : 'N/A' %></td>
-                        <td><%= findCellValueByMesure(data, 'NBMEN') ? findCellValueByMesure(data, 'NBMEN') : 'N/A' %></td>
-                        <td><%= findCellValueByMesure(data, 'NBPERS') ? findCellValueByMesure(data, 'NBPERS') : 'N/A' %></td>
-                        <td><%= findCellValueByMesure(data, 'MEDIANE') ? findCellValueByMesure(data, 'MEDIANE') : 'N/A' %></td>
+                        <td><%= data.Cellule.Valeur ? data.Cellule.Valeur : 'N/A' %></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
-        <%
-            function findCellValueByMesure(data, measureCode) {
-                const cellule = data.Cellule.find(cell => cell.Mesure['@code'] === measureCode);
-                return cellule ? cellule.Valeur : 'N/A';
-            }
-        %>
        
     </body>
 </html>
