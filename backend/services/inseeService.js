@@ -93,11 +93,150 @@ const getFloresNA17 = async () => {
 }
 
 
+// Métadonnées - Géographie
+
+// Aires d'attraction des villes
+
+const getAireAttraction = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/airesDAttractionDesVilles2020?date=2023-02-13', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Arrondissements
+
+const getArrondissement = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/arrondissements?date=2023-02-13', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Arrondissements municipaux
+
+const getArrondissementsMunicipaux = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/arrondissementsMunicipaux?date=2023-02-13', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Bassins de vie
+
+const getBassinsDeVie = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/bassinsDeVie2022?date=2023-02-13', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Collectivité d'Outre-Mer
+
+const getCollectivitesOM = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/collectivitesDOutreMer?date=2023-02-13', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Communes
+
+const getCommunes = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/communes?date=2024-02-17&com=false', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Départements
+
+const getDepartements = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/departements?date=2024-02-17', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Intercommunalités
+
+const getIntercommunalites = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/intercommunalites?date=2024-02-17', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+
 export { 
     getSireneData,
     getPopLegales,
     getFilosofiNbMen,
     getFilosofiZones,
     getFilosofiDeclarations,
-    getFloresNA17
+    getFloresNA17,
+    getAireAttraction,
+    getArrondissement,
+    getArrondissementsMunicipaux,
+    getBassinsDeVie,
+    getCollectivitesOM,
+    getCommunes,
+    getDepartements,
+    getIntercommunalites
 };
