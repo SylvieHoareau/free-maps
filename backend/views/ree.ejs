@@ -3,45 +3,60 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>INSEE - SIRENE</title>
+        <title>INSEE - REE</title>
         <!--Bootstrap CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
         <%- include('./navbar.ejs') %>
         <div class="container mt-5">
-            <h1 class="mb-4">Données de l'API INSEE SIRENE</h1>
-
+            <h1 class="mb-4">Données de l'API INSEE REE</h1>
+            <h2>Variable | <%= data.Variable.Libelle %></h2>
+            <p><strong>Jeu de données :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Libelle ? data.Croisement.JeuDonnees.Libelle : 'N/A' %></p>
+            <p><strong>Source :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Source ? data.Croisement.JeuDonnees.Source : 'N/A' %></p>
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
-                    <th>SIRET</th>
-                    <th>Statut</th>
-                    <th>Date de création</th>
-                    <th>Activité Principale</th>
-                    <th>Adresse</th>
+                    <th>Code Commune</th>
+                    <th>Commune</th>
+                    <th>Autres activités de services</th>
+                    <th>Administration publique, enseignements, santé humaine et action sociale</th>
+                    <th>Activités scientifiques et techniques ; services administratifs et de soutien</th>
+                    <th>Activités immobilières</th>
+                    <th>Activités financières et d'assurance</th>
+                    <th>Information et communication</th>
+                    <th>Commerce de gros et de détail, transports, hébergement et restauration</th>
+                    <th>Construction</th>
+                    <th>Industries manufacturière, industries extractives et autres</th>
+                    <th>Ensemble</th>
                 </thead>
                 <tbody>
-                    <% entreprises.forEach(etablissement => { %>
-                        <tr>
-                            <td><%= etablissement.siret ? etablissement.siret : 'N/A' %></td>
-                            <td><%= etablissement.statutDiffusionEtablissement ? etablissement.statutDiffusionEtablissement : 'N/A' %></td>
-                            <td><%= etablissement.dateCreationEtablissement ? etablissement.dateCreationEtablissement : 'N/A' %></td>
-                            <td><%= etablissement.activitePrincipaleRegistreMetiersEtablissement ? etablissement.activitePrincipaleRegistreMetiersEtablissement : 'N/A' %></td>
-                            <td><%= formatAddress(etablissement.adresseEtablissement) %></td>
-                        </tr>
-                    <% }) %>
+                    <tr>
+                        <td><%= data.Zone['@codgeo'] ? data.Zone['@codgeo'] : 'N/A' %></td>
+                        <td><%= data.Zone.Millesime.Nccenr ? data.Zone.Millesime.Nccenr : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'RU') ? findCellValueByMesure(data, 'RU') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'OQ') ? findCellValueByMesure(data, 'OQ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'MN') ? findCellValueByMesure(data, 'MN') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'LZ') ? findCellValueByMesure(data, 'LZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'KZ') ? findCellValueByMesure(data, 'KZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'JZ') ? findCellValueByMesure(data, 'JZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'GI') ? findCellValueByMesure(data, 'GI') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'FZ') ? findCellValueByMesure(data, 'FZ') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'BE') ? findCellValueByMesure(data, 'BE') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'ENS') ? findCellValueByMesure(data, 'ENS') : 'N/A' %></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         
-        <% function formatAddress(address) { %>
-            <%= address.complementAdresseEtablissement ?  address.complementAdresseEtablissement + ' ' : 'N/A' %>
-            <%= address.libelleVoieEtablissement ?  address.libelleVoieEtablissement + ' ' : 'N/A' %>
-            <%= address.codePostalEtablissement ?  address.codePostalEtablissement + ' ' : 'N/A' %>
-            <%= address.libelleCommuneEtablissement ?  address.libelleCommuneEtablissement : 'N/A' %>
-        <% } %>
+        <%
+            function findCellValueByMesure(data, measureCode) {
+                const cellule = data.Cellule.find(cell => cell.Modalite['@code'].toLowerCase() === measureCode.toLowerCase());
+                return cellule ? cellule.Valeur : 'N/A';
+            }
+        %>
 
-        <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
     </body>
 </html>

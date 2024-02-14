@@ -224,6 +224,56 @@ const getIntercommunalites = async () => {
 }
 
 
+// REE (Répertoire des entreprises et établissements 2021)
+
+const getReeCommunes = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/donnees-locales/V0.1/donnees/geo-NA10_HORS_AZ@GEO2022REE2021/COM-97411.ALL', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Tourisme - Etoiles
+
+
+const getTourismeEtoile = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/donnees-locales/V0.1/donnees/geo-ETOILE@GEO2022TOUR2023/COM-97411.ALL', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+// Tourisme - Hébergement touristique
+
+const getTourismeHebergement = async () => {
+    try {
+        const response = await axios.get('https://api.insee.fr/donnees-locales/V0.1/donnees/geo-HEBCOLL_SANS_HOTCPG@GEO2022TOUR2023/COM-97411.ALL', {
+            headers: {
+                'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                'Accept': 'application/json'
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching INSEE data: ${error.message}`);
+    }
+}
+
+
 export { 
     getSireneData,
     getPopLegales,
@@ -238,5 +288,8 @@ export {
     getCollectivitesOM,
     getCommunes,
     getDepartements,
-    getIntercommunalites
+    getIntercommunalites,
+    getReeCommunes,
+    getTourismeEtoile,
+    getTourismeHebergement
 };

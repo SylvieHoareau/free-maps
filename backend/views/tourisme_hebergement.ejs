@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>INSEE - Tourisme</title>
+        <!--Bootstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <%- include('./navbar.ejs') %>
+        <div class="container mt-5">
+            <h1 class="mb-4">Données de l'API INSEE Tourisme</h1>
+            <h2>Variable | <%= data.Variable.Libelle %></h2>
+            <p><strong>Jeu de données :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Libelle ? data.Croisement.JeuDonnees.Libelle : 'N/A' %></p>
+            <p><strong>Source :</strong> <%= data.Croisement.JeuDonnees && data.Croisement.JeuDonnees.Source ? data.Croisement.JeuDonnees.Source : 'N/A' %></p>
+            <!--Tableau de données-->
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <th>Code commune</th>
+                    <th>Commune</th>
+                    <th>Village vacances - Maison familiale</th>
+                    <th>Résidence de tourisme et hébergements assimilés</th>
+                    <th>Auberge de jeunesse - Centre sportif</th>
+                    <th>Ensemble</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= data.Zone['@codgeo'] ? data.Zone['@codgeo'] : 'N/A' %></td>
+                        <td><%= data.Zone.Millesime.Nccenr ? data.Zone.Millesime.Nccenr : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'VVMF') ? findCellValueByMesure(data, 'VVMF') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'RTRH') ? findCellValueByMesure(data, 'RTRH') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'AJCS') ? findCellValueByMesure(data, 'AJCS') : 'N/A' %></td>
+                        <td><%= findCellValueByMesure(data, 'ENS') ? findCellValueByMesure(data, 'ENS') : 'N/A' %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <%
+            function findCellValueByMesure(data, measureCode) {
+                const cellule = data.Cellule.find(cell => cell.Mesure['@code'] === measureCode);
+                return cellule ? cellule.Valeur : 'N/A';
+            }
+        %>
+       
+    </body>
+</html>
