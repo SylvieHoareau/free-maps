@@ -4,8 +4,9 @@ import dotenv from 'dotenv';
 import sireneRoutes from './routes/sireneRoutes.js';
 import filosofiRoutes from './routes/filosofiRoutes.js';
 import floresRoutes from './routes/floresRoutes.js';
-import metadonneesRoutes from './routes/metadonnesRoutes.js';
+import etatCivilRoutes from './routes/etatCivilRoutes.js';
 import populationRoutes from './routes/populationRoutes.js';
+import metadonneesRoutes from './routes/metadonneesRoutes.js';
 import reeRoutes from './routes/reeRoutes.js';
 import tourismeRoutes from './routes/tourismeRoutes.js';
 
@@ -36,6 +37,7 @@ app.use('/sirene', sireneRoutes);
 app.use('/population', populationRoutes);
 app.use('/filosofi', filosofiRoutes);
 app.use('/flores', floresRoutes);
+app.use('/etatcivil', etatCivilRoutes);
 app.use('/metadonnees', metadonneesRoutes);
 app.use('/ree', reeRoutes);
 app.use('/tourisme', tourismeRoutes);

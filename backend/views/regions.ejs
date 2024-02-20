@@ -22,6 +22,7 @@
                     <th>Date de création</th>
                     <th>Intitulé (sans article)</th>
                     <th>Type d'article</th>
+                    <th>Chef Lieu</th>
                     <th>Intitulé</th>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                             <td><%= entry.dateCreation ? entry.dateCreation : 'N/A' %></td>
                             <td><%= entry.intituleSansArticle ? entry.intituleSansArticle : 'N/A' %></td>
                             <td><%= entry.typeArticle ? entry.typeArticle : 'N/A' %></td>
+                            <td><%= entry.chefLieu ? entry.chefLieu : 'N/A' %></td>
                             <td><%= entry.intitule ? entry.intitule : 'N/A' %></td>
                         </tr>
                     <% }) %>

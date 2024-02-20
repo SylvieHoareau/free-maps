@@ -10,7 +10,12 @@ import {
     getCollectivitesOM, 
     getCommunes, 
     getDepartements, 
-    getIntercommunalites } from '../services/inseeService.js';
+    getIntercommunalites, 
+    getPays,
+    getRegions,
+    getUnitesUrbaines,
+    getZonesEmploi,
+    getConcepts } from '../services/inseeService.js';
 
 // Métadonnées | Géographie | Aire d'attraction des villes
 
@@ -129,6 +134,79 @@ router.get('/intercommunalites', async (req, res, next) => {
     } catch (error) {
         next(error);
         
+    }
+})
+
+// Métadonnées | Géographie | Pays
+
+router.get('/pays', async (req, res, next) => {
+    try {
+        // Effectuer la requête de l'API INSEE
+        const paysData = await getPays();
+
+        res.render('pays', { data: paysData })
+      
+    } catch (error) {
+        next(error);
+        
+    }
+})
+
+
+// Métadonnées | Géographie | Régions
+
+router.get('/regions', async (req, res, next) => {
+    try {
+        // Effectuer la requête de l'API INSEE
+        const regionsData = await getRegions();
+
+        res.render('regions', { data: regionsData })
+      
+    } catch (error) {
+        next(error);
+        
+    }
+})
+
+// Métadonnées | Géographie | Unités Urbaines
+
+router.get('/unitesurbaines', async (req, res, next) => {
+    try {
+        // Effectuer la requête de l'API INSEE
+        const unitesUrbainesData = await getUnitesUrbaines();
+
+        res.render('unites_urbaines', { data: unitesUrbainesData })
+
+    } catch (error) {
+        next(error);
+    }
+})
+
+// Métadonnées | Géographie | Zones d'emploi
+
+router.get('/zonesemplois', async (req, res, next) => {
+    try {
+        // Effectuer la requête de l'API INSEE
+        const zonesEmploisData = await getZonesEmploi();
+
+        res.render('zone_emploi', { data: zonesEmploisData })
+
+    } catch (error) {
+        next(error);
+    }
+})
+
+// Métadonnées | Concepts
+
+router.get('/concepts', async (req, res, next) => {
+    try {
+        // Effectuer la requête de l'API INSEE
+        const conceptsData = await getConcepts();
+
+        res.render('concepts', { data: conceptsData });
+
+    } catch (error) {
+        next(error);
     }
 })
 
