@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDM Climat des affaires</title>
+    <!-- Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ajouter Bootstrap JS (selon les fonctionnalités utilisées) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <!--Base de Données des Ménages-->
+    <h1>Données INSEE BDM | Climat des affaires</h1>
+    <ul>
+        <% data.message.DataSet.Series.forEach(series => { %>
+            <li>
+                <strong><%= series.$.TITLE_FR %></strong>
+                <ul>
+                    <% series.Obs.forEach(obs => { %>
+                        <li><%= obs.$.TIME_PERIOD %> : <%= obs.$.VALUE %> </li>
+                    <% }) %>
+                </ul>
+            </li>
+        <% }); %>
+    </ul>
+    
+</body>
+</html>

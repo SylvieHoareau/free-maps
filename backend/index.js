@@ -9,6 +9,7 @@ import populationRoutes from './routes/populationRoutes.js';
 import metadonneesRoutes from './routes/metadonneesRoutes.js';
 import reeRoutes from './routes/reeRoutes.js';
 import tourismeRoutes from './routes/tourismeRoutes.js';
+import bdmRoutes from './routes/bdmRoutes.js';
 
 // Charger la configuration de dotenv
 dotenv.config()
@@ -41,6 +42,7 @@ app.use('/etatcivil', etatCivilRoutes);
 app.use('/metadonnees', metadonneesRoutes);
 app.use('/ree', reeRoutes);
 app.use('/tourisme', tourismeRoutes);
+app.use('/bdm', bdmRoutes);
 
 // Gérer les erreurs pour toutes les routes
 app.use((error, req, res, next) => {
