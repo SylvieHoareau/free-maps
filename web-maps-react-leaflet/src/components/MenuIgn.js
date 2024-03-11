@@ -1,12 +1,16 @@
 // components/MenuIgn.js
 
-import React from 'react'
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logoIGN_300x200.png';
 
 const MenuIgn= () => {
     return (
-        <Navbar bg="light" variant="light">
+        <Navbar bg="light" variant="light" className="p-2">
+            <Navbar.Brand as={Link} to='/'>
+                <Image src={logo} alt="logo de l'IGN" width="30" height="30" className="d-inline-block align-top"></Image>
+            </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={Link} to="/reunion">La Réunion OSM</Nav.Link>
                 {/* Administration */}
@@ -16,24 +20,6 @@ const MenuIgn= () => {
                     <NavDropdown.Item as={Link} to="/commune">Communes</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/iris">IRIS</NavDropdown.Item>
                 </NavDropdown>
-                {/* Agriculture */}
-                {/* Altimétrie */}
-                {/* Calcul */}
-                {/* Cartes */}
-                {/* Cartovecto */}
-                {/* CLC */}
-                {/* Découverte */}
-                {/* Economie */}
-                {/* ENR */}
-                {/* Environnement */}
-                {/* Essentiels */}
-                {/* Géodésie */}
-                {/* INSPIRE */}
-                {/* Parcellaire */}
-                {/* Satellite */}
-                {/* Eta-Major */}
-                {/* Topographie */}
-                {/* Transports */}
             </Nav>
         </Navbar>
     )

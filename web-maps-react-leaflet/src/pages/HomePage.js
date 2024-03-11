@@ -15,9 +15,9 @@ const HomePage = () => {
                         <p>
                             Découvrez le monde avec nos cartes interactives
                         </p>
-                        <p>
+                        <div>
                             <Button variant="primary">Commencer</Button>
-                        </p>
+                        </div>
                     </Card.Text>
                 </Card.Body>
             </Card>

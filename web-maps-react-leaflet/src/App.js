@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Components
 import HeaderSection from './components/HeaderSection';
 import FooterSection from './components/FooterSection';
-import MenuSection from './components/MenuSection';
+import MenuInsee from './components/MenuInsee';
 import MenuIgn from './components/MenuIgn';
 // Pages statiques
 import AboutUs from './pages/AboutUs';
@@ -17,15 +17,15 @@ import MapReunion from './maps/MapReunion';
 import RegionMap from './maps/RegionMap';
 import EpciMap from './maps/EpciMap';
 import CommuneMap from './maps/CommuneMap';
-
 import ContourIris from './maps/ContourIris';
+import PopulationsLegales from './maps/PopulationsLegales';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <HeaderSection/>
-        <MenuSection/>
+        <MenuInsee/>
         <MenuIgn/>
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
@@ -37,24 +37,8 @@ function App() {
           <Route path="/epci" element={<EpciMap/>}></Route>
           <Route path="/commune" element={<CommuneMap/>}></Route>
           <Route path="/iris" element={<ContourIris/>}></Route>
-          {/* Agriculture */}
-          {/* Altimétrie */}
-          {/* Calcul */}
-          {/* Cartes */}
-          {/* Cartovecto */}
-          {/* CLC */}
-          {/* Découverte */}
-          {/* Economie */}
-          {/* ENR */}
-          {/* Environnement */}
-          {/* Essentiels */}
-          {/* Géodésie */}
-          {/* INSPIRE */}
-          {/* Parcellaire */}
-          {/* Satellite */}
-          {/* Eta-Major */}
-          {/* Topographie */}
-          {/* Transports */}
+          {/* Statistiques INSEE*/}
+          <Route path="/populationslegales" element={<PopulationsLegales/>}></Route>
         </Routes>
         <FooterSection/> 
       </div>

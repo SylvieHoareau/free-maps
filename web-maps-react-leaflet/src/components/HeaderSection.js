@@ -12,6 +12,9 @@ const HeaderSection = () => {
                 <Nav.Link as={Link} to="/about">A propos</Nav.Link>
                 <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
             </Nav>
+            <Nav className="mr-auto">
+                <Nav.Link as={Link} to="http://localhost:5000/">Backoffice</Nav.Link>
+            </Nav>
         </Navbar>
     )
 }

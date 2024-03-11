@@ -66,14 +66,14 @@ const ContourIris = () => {
     }
 
     const onEachFeature = (feature, layer) => {
-        // Ajouter une Popup avec le nom de l'EPCI au survol
-        if (feature.properties && feature.properties.nom) {
-            layer.bindPopup(feature.properties.nom);
+        // Ajouter une Popup avec le nom de l'IRIS au survol
+        if (feature.properties && feature.properties.nom_iris) {
+            layer.bindPopup(feature.properties.nom_iris);
         }
     }
 
     return (
-        <MapContainer center={[-14.2350, 51.9253]} zoom={5} style={{ height: '100vh', width: '100%' }}>
+        <MapContainer center={[45, -4]} zoom={5} style={{ height: '100vh', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors'
