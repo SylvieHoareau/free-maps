@@ -18,19 +18,61 @@ const getSireneData = async () => {
 
 // Populations légales
 
-const getPopLegales = async () => {
+// Fonction pour récupérer les codes des communes
+const getCodesCommunes = async() => {
     try {
-        const response = await axios.get('https://api.insee.fr/donnees-locales/V0.1/donnees/geo-IND_POPLEGALES@POPLEG2020/COM-97411.1', {
+        const response = await axios.get('https://api.insee.fr/metadonnees/V1/geo/communes?date=2024-03-14&com=true', {
             headers: {
                 'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
                 'Accept': 'application/json'
             }
         })
-        return response.data;
+        // Extraire le code commune de la réponse
+        const codesCommunes = response.data.map(commune => commune.code);
+        console.log('Code commune : ', codesCommunes);
+
+        return codesCommunes;
     } catch (error) {
-        throw new Error(`Error fetching INSEE data: ${error.message}`);
+        throw new Error(`Erreur lors de la récupération du codeCommune : ${error.message}`);
     }
 }
+
+// Fonction pour récupérer les populations légales pour une commune
+const getPopLegalesForCommune = async (codeCommune) => {
+    try {
+            const response = await axios.get(`https://api.insee.fr/donnees-locales/V0.1/donnees/geo-IND_POPLEGALES@POPLEG2020/COM-${codeCommune}.1`, {
+                headers: {
+                    'Authorization': `Bearer ${process.env.TOKEN_INSEE}`,
+                    'Accept': 'application/json'
+                }
+            })
+        console.log(`Population légale pour la commune ${codeCommune} récupérée`);
+        // Retourner les données de la commune
+        return response.data;
+    } catch (error) {
+        throw new Error(`Erreur pour la récupération des données pour la commune ${codeCommune} : ${error.message}`);
+    }
+}
+
+// Fonction principale pour récupérer les données de population
+const getPopLegales = async () => {
+    try {
+        // Récupérer les codes des communes
+        const codesCommunes = await getCodesCommunes();
+        console.log('Codes de toutes les communes :', codesCommunes);
+        
+        // Utiliser Promise.all pour récupérer les données des communes en paralléle
+        const popLegalesData = await Promise.all(codesCommunes.map(codeCommune => getPopLegalesForCommune(codeCommune)));
+
+        console.log('Données de populations légales : ', popLegalesData);
+        return popLegalesData;
+    } catch (error) {
+        throw new Error(`Erreur lors de la récupération des données de populations légales : ${error.message}`);
+    }
+}
+
+// Appeler la fonction principale
+// getPopLegales();
 
 // Filosofi
 

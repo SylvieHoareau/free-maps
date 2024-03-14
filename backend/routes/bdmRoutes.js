@@ -1,7 +1,7 @@
 // routes > bdmRoutes.js
 import express from 'express';
 const router = express.Router();
-import { getClimatAffaires } from '../services/inseeService.js';
+import { getClimatAffaires } from '../services/bdmService.js';
 
 // BDM | Climat des affaires
 

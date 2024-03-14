@@ -17,7 +17,7 @@ dotenv.config()
 const app = express();
 const port = 5000;
 
-// Middleware pour parser le coprs des requêtes JSON
+// Middleware pour parser le corps des requêtes JSON
 app.use(express.json());
 
 // Middleware pour servir des fichiers statiques (CSS, image)
