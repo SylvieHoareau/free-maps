@@ -1,8 +1,8 @@
 // components/MenuSection.js
 
-import React from 'react'
-import { Navbar, Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const MenuSection= () => {
     return (
@@ -18,6 +18,10 @@ const MenuSection= () => {
                 <Nav.Link as={Link} to="/unite">Unité Urbaine</Nav.Link>
                 <Nav.Link as={Link} to="/zone">Zone d'emploi</Nav.Link>
                 <Nav.Link as={Link} to="/bassin">Bassin de vie</Nav.Link>
+                 {/* Données */}
+                <NavDropdown title="Données" id="admin-dropdown">
+                    <NavDropdown.Item as={Link} to="/populationslegales">Populations Légales</NavDropdown.Item>
+                </NavDropdown>
             </Nav>
         </Navbar>
     )

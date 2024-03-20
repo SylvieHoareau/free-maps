@@ -7,6 +7,7 @@ import HeaderSection from './components/HeaderSection';
 import FooterSection from './components/FooterSection';
 import MenuInsee from './components/MenuInsee';
 import MenuIgn from './components/MenuIgn';
+import MenuSection from './components/MenuSection';
 // Pages statiques
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
@@ -27,6 +28,7 @@ function App() {
         <HeaderSection/>
         <MenuInsee/>
         <MenuIgn/>
+        <MenuSection />
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
           <Route path="/reunion" element={<MapReunion/>}></Route>

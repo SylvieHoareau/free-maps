@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const RegionMap = () => {
     // Pour afficher les données ADMIN EXPRESS COG - region
-    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=ADMINEXPRESS-COG.LATEST:region';
+    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAME=ADMINEXPRESS-COG.LATEST:region&outputFormat=application/json';
 
     const [geoJSONData, setGeoJSONData] = useState([]);
 
@@ -37,7 +37,8 @@ const RegionMap = () => {
                         headers: {
                             'Authorization' : CLEF,
                             'Accept': 'application/json'
-                        }
+                        },
+                        timeout: 1000 // 10 secondes d'attente
                     });
 
                     console.log('Réponse de l\'API IGN:', response.data)
@@ -73,7 +74,7 @@ const RegionMap = () => {
     }
 
     return (
-        <MapContainer center={[-14.2350, 51.9253]} zoom={5} style={{ height: '100vh', width: '100%' }}>
+        <MapContainer center={[45, -4]} zoom={5} style={{ height: '100vh', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors'
