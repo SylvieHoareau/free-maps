@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const ContourIris = () => {
     // Pour afficher les données STATISTICALUNITS.IRIS:contours_iris
-    const wfsEndpoint = 'https://wxs.ign.fr/cartovecto/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=STATISTICALUNITS.IRIS:contours_iris';
+    const wfsEndpoint = 'https://wxs.ign.fr/cartovecto/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAME=STATISTICALUNITS.IRIS:contours_iris&outputFormat=application/json';
 
     const [geoJSONData, setGeoJSONData] = useState([]);
 
