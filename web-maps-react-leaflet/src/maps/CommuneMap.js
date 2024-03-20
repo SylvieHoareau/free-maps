@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const CommuneMap = () => {
     // Pour afficher les données ADMIN EXPRESS COG - commune
-    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=ADMINEXPRESS-COG.LATEST:commune';
+    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAME=ADMINEXPRESS-COG.LATEST:commune&outputFormat=application/json';
 
     const [geoJSONData, setGeoJSONData] = useState([]);
 
@@ -37,7 +37,8 @@ const CommuneMap = () => {
                         headers: {
                             'Authorization' : CLEF,
                             'Accept': 'application/json'
-                        }
+                        },
+                        timeout: 1000 // 10 secondes d'attentes
                     });
 
                     console.log('Réponse de l\'API IGN:', response.data)

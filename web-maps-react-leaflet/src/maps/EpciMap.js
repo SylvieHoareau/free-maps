@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const EpciMap = () => {
     // Pour afficher les données ADMIN EXPRESS COG - epci
-    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=ADMINEXPRESS-COG-CARTO.LATEST:epci';
+    const wfsEndpoint = 'https://wxs.ign.fr/administratif/geoportail/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAME=ADMINEXPRESS-COG-CARTO.LATEST:epci&outputFormat=application/json';
 
     const [geoJSONData, setGeoJSONData] = useState([]);
 
