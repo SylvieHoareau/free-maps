@@ -3,14 +3,14 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logoIGN_300x200.png';
+// import logo from '../assets/logoIGN_300x200.png';
 
 const MenuIgn= () => {
     return (
         <Navbar bg="light" variant="light" className="p-2">
-            <Navbar.Brand as={Link} to='/'>
+            {/* <Navbar.Brand as={Link} to='/'>
                 <Image src={logo} alt="logo de l'IGN" width="30" height="30" className="d-inline-block align-top"></Image>
-            </Navbar.Brand>
+            </Navbar.Brand> */}
             <Nav className="mr-auto">
                 <Nav.Link as={Link} to="/reunion">La Réunion OSM</Nav.Link>
                 {/* Administration */}

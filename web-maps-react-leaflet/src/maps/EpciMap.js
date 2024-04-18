@@ -37,7 +37,8 @@ const EpciMap = () => {
                         headers: {
                             'Authorization' : CLEF,
                             'Accept': 'application/json'
-                        }
+                        },
+                        timeout: 50000 // 50 secondes d'attente
                     });
 
                     console.log('Réponse de l\'API IGN:', response.data)

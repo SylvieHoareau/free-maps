@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, ScaleControl } from 'react-leaflet';
+import L from 'leaflet';
 import axios from 'axios';
 
 const RegionMap = () => {
@@ -38,7 +39,7 @@ const RegionMap = () => {
                             'Authorization' : CLEF,
                             'Accept': 'application/json'
                         },
-                        timeout: 1000 // 10 secondes d'attente
+                        timeout: 50000 // 50 secondes d'attente
                     });
 
                     console.log('Réponse de l\'API IGN:', response.data)
@@ -48,6 +49,7 @@ const RegionMap = () => {
                 }
 
                 setGeoJSONData(allData);
+                initCompass();
             } catch (error) {
                 console.error('Erreur lors de la récupération des données', error)
             }
@@ -57,7 +59,7 @@ const RegionMap = () => {
 
     const getFeatureStyle = (feature) => {
         return {
-            fillColor: 'blue',
+            fillColor: 'red',
             weight: 2,
             opacity: 1,
             color: 'white',
@@ -67,25 +69,36 @@ const RegionMap = () => {
     }
 
     const onEachFeature = (feature, layer) => {
-        // Ajouter une Popup avec le nom de l'EPCI au survol
+        // Ajouter une Popup avec le nom de la Région au survol
         if (feature.properties && feature.properties.nom) {
-            layer.bindPopup(feature.properties.nom);
+            const popupContent = document.createElement('div');
+            popupContent.innerHTML = `<div><b>Nom : </b><span> ${feature.properties.nom}</span></div>`;
+            layer.bindPopup(popupContent);
         }
     }
 
+    const initCompass = () => {
+        const compass = L.control.compass({ autoActive: true })
+    }
+
     return (
-        <MapContainer center={[45, -4]} zoom={5} style={{ height: '100vh', width: '100%' }}>
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors'
-            />
-            {geoJSONData.length > 0 && 
-                <GeoJSON 
-                    data={{ type: 'FeatureCollection', features: geoJSONData }} 
-                    style={getFeatureStyle}
-                    onEachFeature={onEachFeature}
+        <div>
+            <h1>Limites administratives des régions</h1>
+            <MapContainer center={[45, -4]} zoom={5} style={{ height: '600px', width: '100%' }}>
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors'
+                />
+                {geoJSONData.length > 0 && 
+                    <GeoJSON 
+                        data={{ type: 'FeatureCollection', features: geoJSONData }} 
+                        style={getFeatureStyle}
+                        onEachFeature={onEachFeature}
                 />}
-        </MapContainer>
+                <ScaleControl position="bottomleft"></ScaleControl>
+            </MapContainer>
+        </div>
+        
     )
 }
 

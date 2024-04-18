@@ -42,7 +42,7 @@ const PopulationsLegales = () => {
                             'Authorization' : IGN_CLEF,
                             'Accept': 'application/json'
                         },
-                        timeout: 10000 // 10 secondes d'attentes
+                        timeout: 60000 // 10 secondes d'attentes
                     });
 
                     console.log('Réponse de l\'API IGN:', response.data)

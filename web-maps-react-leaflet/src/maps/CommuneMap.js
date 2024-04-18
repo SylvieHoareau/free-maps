@@ -38,7 +38,7 @@ const CommuneMap = () => {
                             'Authorization' : CLEF,
                             'Accept': 'application/json'
                         },
-                        timeout: 1000 // 10 secondes d'attentes
+                        timeout: 60000 // 1 minute d'attente
                     });
 
                     console.log('Réponse de l\'API IGN:', response.data)

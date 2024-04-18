@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Components
 import HeaderSection from './components/HeaderSection';
 import FooterSection from './components/FooterSection';
-import MenuInsee from './components/MenuInsee';
+// import MenuInsee from './components/MenuInsee';
 import MenuIgn from './components/MenuIgn';
 import MenuSection from './components/MenuSection';
 // Pages statiques
@@ -20,15 +20,24 @@ import EpciMap from './maps/EpciMap';
 import CommuneMap from './maps/CommuneMap';
 import ContourIris from './maps/ContourIris';
 import PopulationsLegales from './maps/PopulationsLegales';
+import { Breadcrumb } from 'react-bootstrap';
 
 function App() {
+  const items = [
+    { label: 'Accueil', path: '/'},
+    { label: 'Région', path: '/region'},
+    { label: 'Epci', path: '/epci', active: true},
+    { label: 'Commune', path: '/commune'},
+    { label: 'Contact', path: '/contact'}
+  ]
   return (
     <Router>
       <div className="App">
         <HeaderSection/>
-        <MenuInsee/>
+        {/* <MenuInsee/> */}
         <MenuIgn/>
         <MenuSection />
+        <Breadcrumb items={items} />
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
           <Route path="/reunion" element={<MapReunion/>}></Route>
